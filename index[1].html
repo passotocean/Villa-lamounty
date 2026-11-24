@@ -1,0 +1,475 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Villa Lamounty</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Mise en page : site à sections cliquables (accueil, visite, disponibilités, réservation, contact), en-tête fixe avec navigation. */
+:root{
+  /* Couleurs du logo : or bronze #b4844c, noir, blanc. */
+  --bg:#f8f5ef; --surface:#ffffff; --fg:#17130e; --muted:#6b5f4f; --line:#e4d9c6;
+  --brand:#17130e; --brand-ink:#ffffff; --accent:#b4844c; --accent-ink:#17130e; --gold-text:#8a6129;
+  --free:#f4ecdd; --busy:#ebe7e0; --busy-fg:#968b7b; --range:#ead8b8;
+  --hero-a:#14110d; --hero-b:#241d15; --hero-gold:#cfa266; --hero-fg:#ffffff;
+  --font-display:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#110f0c; --surface:#1b1813; --fg:#f4ede0; --muted:#b8aa92; --line:#3a3226;
+    --brand:#efe6d4; --brand-ink:#17130e; --accent:#c9985c; --accent-ink:#17130e; --gold-text:#d6ac70;
+    --free:#26211a; --busy:#15120e; --busy-fg:#6f6556; --range:#4a3a22;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#110f0c; --surface:#1b1813; --fg:#f4ede0; --muted:#b8aa92; --line:#3a3226;
+  --brand:#efe6d4; --brand-ink:#17130e; --accent:#c9985c; --accent-ink:#17130e; --gold-text:#d6ac70;
+  --free:#26211a; --busy:#15120e; --busy-fg:#6f6556; --range:#4a3a22;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:30}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* En-tête */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1rem;padding-block:.7rem}
+.brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;min-width:0}
+.brand img{flex:none;height:46px;width:auto;border-radius:10px;background:#fff;border:1px solid var(--line)}
+.brand b{font-family:var(--font-display);font-weight:600;font-size:1.2rem;display:block;line-height:1.1;letter-spacing:.01em}
+.brand small{display:block;color:var(--gold-text);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.nav{display:flex;gap:.3rem;overflow-x:auto;min-width:0;max-width:100%;padding-block:2px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;padding:.45rem .85rem;border-radius:999px;font-weight:600;font-size:.92rem;color:var(--muted)}
+.nav a:hover{background:var(--free);color:var(--fg)}
+.nav a[aria-current="page"]{background:var(--brand);color:var(--brand-ink)}
+.nav a.cta{background:var(--accent);color:var(--accent-ink)}
+.nav a.cta[aria-current="page"]{outline:2px solid var(--fg);outline-offset:-2px}
+@media (max-width:760px){.nav{width:100%}}
+
+/* Sections */
+main{padding-block:1.5rem 3rem}
+.view h2{font-size:clamp(1.7rem,4.5vw,2.4rem);margin-bottom:.5rem}
+.lead{color:var(--muted);max-width:60ch;margin-bottom:1.5rem}
+
+/* Accueil */
+.hero{background:linear-gradient(160deg,var(--hero-a),var(--hero-b));color:var(--hero-fg);border-radius:20px;padding:clamp(1.5rem,5vw,3.25rem);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:2rem;align-items:center;border-bottom:4px solid var(--hero-gold)}
+@media (max-width:760px){.hero{grid-template-columns:minmax(0,1fr)}}
+.hero-logo{background:#fff;border-radius:16px;padding:.75rem;justify-self:center;width:100%;max-width:380px}
+.hero-logo img{display:block;width:100%;height:auto}
+.eyebrow{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--hero-gold);margin-bottom:.8rem}
+.hero h1{font-size:clamp(2.3rem,7vw,4.2rem);margin-bottom:.4rem;letter-spacing:.005em}
+.hero .sub{font-family:var(--font-display);font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--hero-gold);font-size:.95rem;margin-bottom:1rem}
+.hero p{max-width:46ch;font-size:1.05rem;opacity:.92}
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:1rem;margin-top:1.5rem}
+.action{display:flex;flex-direction:column;gap:.35rem;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.25rem;min-width:0}
+.action:hover{border-color:var(--brand)}
+.action h3{font-size:1.25rem}
+.action span{color:var(--muted);font-size:.94rem}
+.action em{font-style:normal;color:var(--gold-text);font-weight:700;margin-top:.4rem}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1.25rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.facts dt{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.facts dd{margin:.2rem 0 0;font-weight:600;overflow-wrap:anywhere}
+
+/* Boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:0;border-radius:10px;padding:.7rem 1.1rem;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;background:var(--brand);color:var(--brand-ink)}
+.btn.alt{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn.alt:hover{border-color:var(--brand)}
+.btn.gold{background:var(--accent);color:var(--accent-ink)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* Visite */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:.4rem .9rem;font:inherit;font-weight:600;font-size:.9rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:12px}
+.tile{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(135deg,var(--free) 0 14px,var(--surface) 14px 28px);border:1px dashed var(--line);display:flex;align-items:flex-end;min-width:0}
+.tile.wide{grid-column:span 2;aspect-ratio:auto;min-height:260px}
+@media (max-width:560px){.tile.wide{grid-column:span 1}}
+.tile div{padding:.8rem 1rem;width:100%;background:linear-gradient(transparent,var(--surface))}
+.tile b{display:block}
+.tile small{color:var(--muted)}
+
+/* Calendrier */
+.cal{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(.8rem,3vw,1.5rem);max-width:720px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.9rem}
+.cal-head h3{font-size:1.4rem;text-transform:capitalize;text-align:center;flex:1}
+.cal-head button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--fg);font-size:1.2rem;cursor:pointer}
+.cal-head button[disabled]{opacity:.35;cursor:not-allowed}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.wd{text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-bottom:.3rem}
+.day{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:58px;padding:.25rem 0;border-radius:10px;border:1px solid transparent;background:var(--free);color:var(--fg);font:inherit;cursor:pointer;min-width:0}
+.day:hover:not([disabled]){border-color:var(--brand)}
+.day .n{font-weight:700;font-size:1rem;line-height:1.1}
+.day .p{font-size:.66rem;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.1}
+.day.blank{background:transparent;pointer-events:none}
+.day.busy,.day.past{background:var(--busy);color:var(--busy-fg);cursor:not-allowed}
+.day.busy .n{text-decoration:line-through}
+.day.busy .p,.day.past .p{visibility:hidden}
+.day.inrange{background:var(--range)}
+.day.sel{background:var(--accent);color:var(--accent-ink)}
+.day.sel .p{color:var(--accent-ink)}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;margin-top:1rem;font-size:.85rem;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:.4rem}
+.summary{margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem}
+.summary p{min-width:0;font-weight:600}
+.summary .row{display:flex;gap:.5rem;flex-wrap:wrap}
+.note{margin-top:.9rem;font-size:.85rem;color:var(--muted)}
+
+/* Réservation */
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:720px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(1rem,3vw,1.75rem)}
+.form .full{grid-column:1/-1}
+.form label{display:block;font-weight:600;font-size:.9rem;margin-bottom:.3rem}
+.form input,.form select,.form textarea{width:100%;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:.65rem .8rem}
+.form textarea{min-height:110px;resize:vertical}
+@media (max-width:560px){.form{grid-template-columns:minmax(0,1fr)}}
+.msg{font-weight:600;color:#b3261e}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .msg{color:#ff9e96}}
+:root[data-theme="dark"] .msg{color:#ff9e96}
+.recap{max-width:720px;margin-top:1.25rem;background:var(--surface);border:2px solid var(--brand);border-radius:16px;padding:1.25rem}
+.recap pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;background:var(--bg);border-radius:10px;padding:.9rem;margin:.8rem 0}
+.recap .row{display:flex;flex-wrap:wrap;gap:.6rem}
+
+/* Contact */
+.contacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:1rem;max-width:960px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.25rem;display:flex;flex-direction:column;gap:.5rem;min-width:0}
+.card small{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.card .num{font-family:var(--font-display);font-size:1.45rem;font-weight:600;overflow-wrap:anywhere;user-select:all}
+.card .row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.3rem}
+.addr{max-width:960px;margin-top:1.25rem}
+
+footer{border-top:1px solid var(--line);padding-block:1.5rem;color:var(--muted);font-size:.88rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between}
+@media (prefers-reduced-motion:no-preference){.btn,.action,.day{transition:border-color .15s,background .15s}}
+</style>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#accueil" aria-label="Villa Lamounty, accueil">
+      <img src="logo-emblem.jpg" alt="Logo Villa Lamounty : un baobab, une maison au toit de chaume et les lettres VL" width="52" height="46">
+      <span><b>villa lamounty</b><small>Guest house</small></span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#accueil" data-nav="accueil">Accueil</a>
+      <a href="#visite" data-nav="visite">Visiter la villa</a>
+      <a href="#disponibilites" data-nav="disponibilites">Disponibilités</a>
+      <a href="#contact" data-nav="contact">Contact</a>
+      <a href="#reservation" data-nav="reservation" class="cta">Réserver</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ACCUEIL -->
+  <section class="view" id="v-accueil">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Madirokely · Nosy Be · Madagascar</p>
+        <h1>villa lamounty</h1>
+        <p class="sub">Guest house</p>
+        <p>Séjournez à Madirokely, sur l'île de Nosy Be. Découvrez la villa, consultez les dates libres et envoyez votre demande de réservation.</p>
+      </div>
+      <div class="hero-logo"><img src="logo-full.jpg" alt="Logo Villa Lamounty Guest House, Madirokely Nosy-Be"></div>
+    </div>
+    <div class="actions">
+      <a class="action" href="#visite"><h3>Visiter la villa</h3><span>Parcourez les photos pièce par pièce.</span><em>Voir la villa →</em></a>
+      <a class="action" href="#disponibilites"><h3>Voir les disponibilités</h3><span>Calendrier mensuel avec les prix par jour.</span><em>Ouvrir le calendrier →</em></a>
+      <a class="action" href="#reservation"><h3>Réserver</h3><span>Choisissez vos dates et envoyez votre demande.</span><em>Faire une demande →</em></a>
+    </div>
+    <dl class="facts">
+      <div><dt>Adresse</dt><dd>Madirokely, Nosy Be 207, Madagascar</dd></div>
+      <div><dt>Téléphone</dt><dd>00261 32 41 327 70</dd></div>
+      <div><dt>WhatsApp</dt><dd>+33 6 68 71 98 30<br>+33 6 66 36 41 96</dd></div>
+    </dl>
+  </section>
+
+  <!-- VISITE -->
+  <section class="view" id="v-visite" hidden>
+    <h2>Visiter la villa</h2>
+    <p class="lead">Les photos de la villa seront affichées ici, classées par espace. Choisissez une catégorie pour filtrer.</p>
+    <div class="chips" id="chips" role="group" aria-label="Catégories de photos"></div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- DISPONIBILITÉS -->
+  <section class="view" id="v-disponibilites" hidden>
+    <h2>Disponibilités et prix</h2>
+    <p class="lead">Choisissez votre jour d'arrivée puis votre jour de départ. Les jours barrés sont déjà réservés.</p>
+    <div class="cal">
+      <div class="cal-head">
+        <button type="button" id="prev" aria-label="Mois précédent">‹</button>
+        <h3 id="month-title" aria-live="polite"></h3>
+        <button type="button" id="next" aria-label="Mois suivant">›</button>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="legend">
+        <span><i style="background:var(--free);border:1px solid var(--line)"></i>Libre</span>
+        <span><i style="background:var(--busy)"></i>Réservé</span>
+        <span><i style="background:var(--accent)"></i>Votre sélection</span>
+      </div>
+      <div class="summary">
+        <p id="cal-summary">Sélectionnez votre jour d'arrivée.</p>
+        <div class="row">
+          <button type="button" class="btn alt" id="clear">Effacer</button>
+          <button type="button" class="btn gold" id="go-book" disabled>Réserver ces dates</button>
+        </div>
+      </div>
+      <p class="note">Les prix par jour apparaîtront sous chaque date. Les dates réservées affichées ici sont des exemples.</p>
+    </div>
+  </section>
+
+  <!-- RÉSERVATION -->
+  <section class="view" id="v-reservation" hidden>
+    <h2>Réserver la villa</h2>
+    <p class="lead">Remplissez votre demande. Elle est confirmée par la propriétaire après échange par WhatsApp ou par téléphone.</p>
+    <form class="form" id="book-form" novalidate>
+      <div><label for="f-in">Arrivée</label><input type="date" id="f-in" name="arrivee" required></div>
+      <div><label for="f-out">Départ</label><input type="date" id="f-out" name="depart" required></div>
+      <div><label for="f-guests">Nombre de voyageurs</label><input type="number" id="f-guests" name="voyageurs" min="1" max="30" value="2" required></div>
+      <div><label for="f-name">Nom et prénom</label><input type="text" id="f-name" name="nom" autocomplete="name" required></div>
+      <div class="full"><label for="f-contact">Téléphone ou e-mail</label><input type="text" id="f-contact" name="contact" autocomplete="tel" required></div>
+      <div class="full"><label for="f-msg">Message (facultatif)</label><textarea id="f-msg" name="message"></textarea></div>
+      <p class="msg full" id="form-msg" role="alert"></p>
+      <div class="full"><button type="submit" class="btn gold">Préparer ma demande</button></div>
+    </form>
+    <div class="recap" id="recap" hidden>
+      <h3>Votre demande est prête</h3>
+      <p class="lead" style="margin:.4rem 0 0">Elle n'est pas encore envoyée. Choisissez un numéro WhatsApp pour l'envoyer à la villa.</p>
+      <pre id="recap-text"></pre>
+      <div class="row">
+        <a class="btn" id="wa1" href="#" target="_blank" rel="noopener">Envoyer au +33 6 68 71 98 30</a>
+        <a class="btn" id="wa2" href="#" target="_blank" rel="noopener">Envoyer au +33 6 66 36 41 96</a>
+        <button type="button" class="btn alt" id="copy-recap">Copier le message</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="view" id="v-contact" hidden>
+    <h2>Contact</h2>
+    <p class="lead">Une question avant de réserver ? Écrivez sur WhatsApp ou appelez.</p>
+    <div class="contacts">
+      <div class="card"><small>Téléphone · Madagascar</small><span class="num">00261 32 41 327 70</span>
+        <div class="row"><a class="btn" href="tel:00261324132770">Appeler</a><button type="button" class="btn alt" data-copy="00261 32 41 327 70">Copier</button></div></div>
+      <div class="card"><small>WhatsApp 1</small><span class="num">+33 6 68 71 98 30</span>
+        <div class="row"><a class="btn" href="https://wa.me/33668719830" target="_blank" rel="noopener">Écrire sur WhatsApp</a><button type="button" class="btn alt" data-copy="+33 6 68 71 98 30">Copier</button></div></div>
+      <div class="card"><small>WhatsApp 2</small><span class="num">+33 6 66 36 41 96</span>
+        <div class="row"><a class="btn" href="https://wa.me/33666364196" target="_blank" rel="noopener">Écrire sur WhatsApp</a><button type="button" class="btn alt" data-copy="+33 6 66 36 41 96">Copier</button></div></div>
+    </div>
+    <div class="card addr"><small>Adresse</small><span class="num" style="user-select:auto">Villa Lamounty, Madirokely, Nosy Be 207, Madagascar</span></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Villa Lamounty Guest House · Madirokely, Nosy Be, Madagascar</span>
+    <span>00261 32 41 327 70 · +33 6 68 71 98 30</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ===== À MODIFIER : réglages du calendrier ===== */
+  var CURRENCY = '€';
+  var DEFAULT_PRICE = null;            // prix par jour par défaut, ex. 120 (null = pas encore de prix)
+  var PRICES = {};                     // prix précis par date, ex. {'2026-12-24': 180}
+  var BOOKED_RANGES = [                // dates réservées (exemples), format [début, fin] incluses
+    ['2026-11-28','2026-11-30'],
+    ['2026-12-05','2026-12-10'],
+    ['2026-12-20','2027-01-03'],
+    ['2027-01-15','2027-01-19']
+  ];
+  var PHOTO_SPOTS = [                  // emplacements photos de la page « Visiter »
+    {cat:'Extérieur', title:'Façade et entrée'},
+    {cat:'Extérieur', title:'Jardin et terrasse'},
+    {cat:'Salon', title:'Salon et salle à manger'},
+    {cat:'Cuisine', title:'Cuisine'},
+    {cat:'Chambres', title:'Chambre 1'},
+    {cat:'Chambres', title:'Chambre 2'},
+    {cat:'Salle de bain', title:'Salle de bain'},
+    {cat:'Vue', title:'Vue depuis la villa'}
+  ];
+  var WHATSAPP = ['33668719830','33666364196'];
+  /* =============================================== */
+
+  var VIEWS = ['accueil','visite','disponibilites','reservation','contact'];
+  var $ = function(id){ return document.getElementById(id); };
+
+  function pad(n){ return (n<10?'0':'')+n; }
+  function key(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function parse(k){ var p=k.split('-'); return new Date(+p[0], +p[1]-1, +p[2], 12); }
+  function addDays(d,n){ var x=new Date(d.getFullYear(), d.getMonth(), d.getDate()+n, 12); return x; }
+  function fmt(d){ return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}); }
+  function nightsBetween(a,b){ return Math.round((b-a)/86400000); }
+
+  var today = new Date(); today = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12);
+  var booked = {};
+  BOOKED_RANGES.forEach(function(r){
+    for(var d=parse(r[0]), e=parse(r[1]); d<=e; d=addDays(d,1)) booked[key(d)] = true;
+  });
+
+  function priceOf(k){ var p = PRICES.hasOwnProperty(k) ? PRICES[k] : DEFAULT_PRICE; return (p===null||p===undefined) ? null : p; }
+  function nightsFree(a,b){ for(var d=a; d<b; d=addDays(d,1)){ if(booked[key(d)]) return false; } return true; }
+
+  /* ----- Navigation ----- */
+  function route(){
+    var h = location.hash.replace('#','');
+    if(VIEWS.indexOf(h)<0) h='accueil';
+    VIEWS.forEach(function(v){ $('v-'+v).hidden = (v!==h); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-nav]'), function(a){
+      if(a.getAttribute('data-nav')===h) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+    });
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange', route);
+
+  /* ----- Visite ----- */
+  var cats = ['Tout'];
+  PHOTO_SPOTS.forEach(function(s){ if(cats.indexOf(s.cat)<0) cats.push(s.cat); });
+  var activeCat = 'Tout';
+  function renderGallery(){
+    var chips = $('chips'); chips.innerHTML='';
+    cats.forEach(function(c){
+      var b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=c;
+      b.setAttribute('aria-pressed', c===activeCat ? 'true':'false');
+      b.addEventListener('click', function(){ activeCat=c; renderGallery(); });
+      chips.appendChild(b);
+    });
+    var g = $('gallery'); g.innerHTML='';
+    var vid=document.createElement('div'); vid.className='tile wide';
+    vid.innerHTML='<div><b>Visite vidéo ou à 360°</b><small>Emplacement réservé</small></div>';
+    if(activeCat==='Tout') g.appendChild(vid);
+    PHOTO_SPOTS.forEach(function(s){
+      if(activeCat!=='Tout' && s.cat!==activeCat) return;
+      var t=document.createElement('div'); t.className='tile';
+      var inner=document.createElement('div');
+      var b=document.createElement('b'); b.textContent=s.title;
+      var sm=document.createElement('small'); sm.textContent='Photo à ajouter';
+      inner.appendChild(b); inner.appendChild(sm); t.appendChild(inner); g.appendChild(t);
+    });
+  }
+
+  /* ----- Calendrier ----- */
+  var minMonth = new Date(today.getFullYear(), today.getMonth(), 1, 12);
+  var maxMonth = new Date(today.getFullYear(), today.getMonth()+17, 1, 12);
+  var view = new Date(minMonth);
+  var selStart = null, selEnd = null;
+
+  function renderCal(){
+    $('month-title').textContent = view.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+    $('prev').disabled = view <= minMonth;
+    $('next').disabled = view >= maxMonth;
+    var grid = $('cal-grid'); grid.innerHTML='';
+    ['lun','mar','mer','jeu','ven','sam','dim'].forEach(function(w){
+      var h=document.createElement('div'); h.className='wd'; h.textContent=w; grid.appendChild(h);
+    });
+    var first = new Date(view.getFullYear(), view.getMonth(), 1, 12);
+    var lead = (first.getDay()+6)%7;
+    for(var i=0;i<lead;i++){ var bl=document.createElement('div'); bl.className='day blank'; grid.appendChild(bl); }
+    var last = new Date(view.getFullYear(), view.getMonth()+1, 0, 12).getDate();
+    for(var n=1;n<=last;n++){
+      var d = new Date(view.getFullYear(), view.getMonth(), n, 12), k = key(d);
+      var btn=document.createElement('button'); btn.type='button'; btn.className='day'; btn.setAttribute('data-date',k);
+      var p = priceOf(k);
+      btn.innerHTML='<span class="n">'+n+'</span><span class="p">'+(p===null?'—':p+' '+CURRENCY)+'</span>';
+      var label = fmt(d);
+      if(d<today){ btn.classList.add('past'); btn.disabled=true; label+=', passé'; }
+      else if(booked[k]){ btn.classList.add('busy'); btn.disabled=true; label+=', réservé'; }
+      else label+=', libre';
+      if(selStart && key(d)===key(selStart)) btn.classList.add('sel');
+      if(selEnd && key(d)===key(selEnd)) btn.classList.add('sel');
+      if(selStart && selEnd && d>selStart && d<selEnd) btn.classList.add('inrange');
+      btn.setAttribute('aria-label', label);
+      grid.appendChild(btn);
+    }
+    renderSummary();
+  }
+
+  function renderSummary(){
+    var s=$('cal-summary'), go=$('go-book');
+    go.disabled = !(selStart && selEnd);
+    if(!selStart){ s.textContent="Sélectionnez votre jour d'arrivée."; return; }
+    if(!selEnd){ s.textContent='Arrivée le '+fmt(selStart)+'. Sélectionnez votre jour de départ.'; return; }
+    var nights = nightsBetween(selStart, selEnd), total=0, known=true;
+    for(var d=selStart; d<selEnd; d=addDays(d,1)){ var p=priceOf(key(d)); if(p===null){known=false;break;} total+=p; }
+    s.textContent = 'Du '+fmt(selStart)+' au '+fmt(selEnd)+' · '+nights+(nights>1?' nuits':' nuit')+' · '+(known? 'Total : '+total+' '+CURRENCY : 'Tarif à définir');
+  }
+
+  $('cal-grid').addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('.day') : null;
+    if(!b || b.disabled) return;
+    var d = parse(b.getAttribute('data-date'));
+    if(!selStart || (selStart && selEnd)){ selStart=d; selEnd=null; }
+    else if(d<=selStart){ selStart=d; }
+    else if(nightsFree(selStart,d)){ selEnd=d; }
+    else { selStart=d; selEnd=null; }
+    syncInputs(); renderCal();
+  });
+  $('prev').addEventListener('click', function(){ if(view>minMonth){ view=new Date(view.getFullYear(), view.getMonth()-1, 1, 12); renderCal(); } });
+  $('next').addEventListener('click', function(){ if(view<maxMonth){ view=new Date(view.getFullYear(), view.getMonth()+1, 1, 12); renderCal(); } });
+  $('clear').addEventListener('click', function(){ selStart=selEnd=null; syncInputs(); renderCal(); });
+  $('go-book').addEventListener('click', function(){ location.hash='reservation'; });
+
+  /* ----- Réservation ----- */
+  function syncInputs(){
+    $('f-in').value = selStart ? key(selStart) : '';
+    $('f-out').value = selEnd ? key(selEnd) : '';
+  }
+  $('f-in').min = key(today); $('f-out').min = key(today);
+  function fromInputs(){
+    var a=$('f-in').value, b=$('f-out').value;
+    selStart = a ? parse(a) : null;
+    selEnd = b ? parse(b) : null;
+    if(selStart){ view = new Date(selStart.getFullYear(), selStart.getMonth(), 1, 12); }
+    renderCal();
+  }
+  $('f-in').addEventListener('change', fromInputs);
+  $('f-out').addEventListener('change', fromInputs);
+
+  var lastMessage = '';
+  $('book-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg=$('form-msg'); msg.textContent=''; $('recap').hidden=true;
+    var a=$('f-in').value, b=$('f-out').value, g=$('f-guests').value, name=$('f-name').value.trim(), contact=$('f-contact').value.trim(), note=$('f-msg').value.trim();
+    if(!a || !b){ msg.textContent="Indiquez vos dates d'arrivée et de départ."; return; }
+    var da=parse(a), db=parse(b);
+    if(da<today){ msg.textContent="La date d'arrivée est déjà passée."; return; }
+    if(db<=da){ msg.textContent="Le départ doit être après l'arrivée."; return; }
+    if(!nightsFree(da,db) || booked[b]){ msg.textContent='Ces dates ne sont pas toutes libres. Consultez le calendrier pour choisir une autre période.'; return; }
+    if(!g || +g<1){ msg.textContent='Indiquez le nombre de voyageurs.'; return; }
+    if(!name || !contact){ msg.textContent='Indiquez votre nom et un moyen de vous joindre.'; return; }
+    var n=nightsBetween(da,db);
+    lastMessage = 'Bonjour, je souhaite réserver la Villa Lamounty du '+fmt(da)+' au '+fmt(db)+' ('+n+(n>1?' nuits':' nuit')+') pour '+g+(+g>1?' voyageurs':' voyageur')+'.\n'
+      +'Nom : '+name+'\nContact : '+contact+(note?'\nMessage : '+note:'');
+    $('recap-text').textContent = lastMessage;
+    $('wa1').href = 'https://wa.me/'+WHATSAPP[0]+'?text='+encodeURIComponent(lastMessage);
+    $('wa2').href = 'https://wa.me/'+WHATSAPP[1]+'?text='+encodeURIComponent(lastMessage);
+    $('recap').hidden=false;
+    $('recap').scrollIntoView({block:'nearest'});
+  });
+
+  /* ----- Copie ----- */
+  function copy(text, btn){
+    var original = btn.textContent;
+    function done(t){ btn.textContent=t; setTimeout(function(){ btn.textContent=original; }, 1800); }
+    try{
+      navigator.clipboard.writeText(text).then(function(){ done('Copié'); }, function(){ done('Sélectionnez le texte'); });
+    }catch(err){ done('Sélectionnez le texte'); }
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function(b){
+    b.addEventListener('click', function(){ copy(b.getAttribute('data-copy'), b); });
+  });
+  $('copy-recap').addEventListener('click', function(){ copy(lastMessage, $('copy-recap')); });
+
+  renderGallery(); renderCal(); route();
+})();
+</script>
+
+</body></html>
